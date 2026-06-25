@@ -1,0 +1,147 @@
+:root {
+    --bg-page: #f1f5f9;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --primary: #e479c2; 
+    --primary-hover: #c95fa7;
+    --danger: #ef4444;
+    --border: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { background-color: var(--bg-page); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+
+.todo-app { background-color: var(--bg-card); width: 100%; max-width: 550px; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); }
+.header-top { display: flex; justify-content: space-between; align-items: center; }
+.header-botoes { display: flex; gap: 10px; }
+header h1 { font-size: 26px; }
+header p { color: var(--text-muted); font-size: 13px; margin-bottom: 12px; }
+
+/* PROGRESSO */
+.progresso-container { margin-bottom: 20px; }
+#contador-tarefas { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+.barra-progresso-bg { background-color: var(--border); width: 100%; height: 8px; border-radius: 10px; overflow: hidden; }
+#barra-progresso-fill { height: 100%; background-color: var(--primary); width: 0%; transition: width 0.4s ease; }
+
+#btn-tema, #btn-calc { background: transparent; border: none; font-size: 22px; cursor: pointer; transition: transform 0.2s; user-select: none; }
+#btn-tema:hover, #btn-calc:hover { transform: scale(1.15); }
+
+/* FORMULÁRIO */
+#form-tarefa { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+.form-linha-1 { display: flex; }
+#input-tarefa { flex: 1; padding: 12px; border: 2px solid var(--border); border-radius: 8px; outline: none; font-size: 14px; }
+#input-tarefa:focus, #input-busca:focus { border-color: var(--primary); }
+.form-linha-2 { display: flex; gap: 6px; }
+#select-prioridade, #select-categoria, #input-data { flex: 1; padding: 10px; border: 2px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text-main); font-size: 13px; outline: none; cursor: pointer; }
+#btn-adicionar { background-color: var(--primary); color: white; border: none; width: 45px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+#btn-adicionar:hover { background-color: var(--primary-hover); }
+
+/* BUSCA E FILTROS */
+.busca-container { margin-bottom: 15px; }
+#input-busca { width: 100%; padding: 10px 14px; border: 2px solid var(--border); border-radius: 8px; outline: none; font-size: 14px; }
+.filtros-container { display: flex; gap: 6px; margin-bottom: 20px; }
+.btn-filtro { flex: 1; padding: 8px; background: transparent; border: 2px solid var(--border); border-radius: 6px; color: var(--text-muted); cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+.btn-filtro:hover { border-color: var(--primary); color: var(--primary); }
+.btn-filtro.ativo { background-color: var(--primary); color: white; border-color: var(--primary); }
+
+/* LISTA */
+#lista-tarefas { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.tarefa-item { display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-page); padding: 12px 16px; border-radius: 8px; border-left: 5px solid var(--primary); animation: abrir 0.3s ease; }
+.tarefa-item.prio-baixa { border-left-color: #22c55e; }
+.tarefa-item.prio-media { border-left-color: #eab308; }
+.tarefa-item.prio-alta { border-left-color: #ef4444; }
+.tarefa-item.atrasada { background-color: #fef2f2; border-left-style: dashed; animation: pulsarAviso 1.5s infinite; }
+body.dark .tarefa-item.atrasada { background-color: #2d1a1a; }
+.tarefa-item.concluida { border-left-color: var(--text-muted) !important; opacity: 0.4; background-color: var(--bg-page) !important; animation: none; }
+.tarefa-item.concluida .tarefa-texto { text-decoration: line-through; color: var(--text-muted); }
+.tarefa-texto { font-size: 14px; cursor: pointer; user-select: none; flex: 1; }
+.tarefa-detalhes { display: flex; gap: 10px; font-size: 11px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+.tag-atrasada { color: var(--danger); font-weight: bold; }
+.btn-deletar { background: transparent; border: none; color: var(--text-muted); font-size: 15px; cursor: pointer; padding: 4px; }
+.btn-deletar:hover { color: var(--danger); }
+.mensagem-vazia { text-align: center; color: var(--text-muted); font-style: italic; padding: 20px 0; font-size: 14px; }
+#btn-limpar-tudo { width: 100%; background: transparent; color: var(--danger); border: 2px solid var(--danger); padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px; transition: all 0.2s; }
+#btn-limpar-tudo:hover { background: var(--danger); color: white; }
+
+/* ==========================================
+   ESTILOS DO MODAL E DA CALCULADORA
+   ========================================== */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido translúcido */
+    justify-content: center; align-items: center;
+}
+
+.modal-conteudo {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 16px;
+    width: 300px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    animation: abrir 0.25s ease-out;
+}
+
+.fechar-modal {
+    position: absolute;
+    right: 15px; top: 10px;
+    font-size: 24px; color: var(--text-muted);
+    cursor: pointer;
+}
+.fechar-modal:hover { color: var(--danger); }
+
+/* Grid da Calculadora */
+#calc-display {
+    width: 100%; height: 50px;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 22px; text-align: right;
+    padding: 10px; margin-top: 15px; margin-bottom: 15px;
+    outline: none; font-weight: bold;
+}
+
+.calc-botoes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.calc-botoes button {
+    padding: 15px; font-size: 16px; font-weight: 600;
+    border: none; border-radius: 8px; cursor: pointer;
+    background-color: var(--bg-page); color: var(--text-main);
+    transition: background 0.1s;
+}
+.calc-botoes button:hover { background-color: var(--border); }
+
+.calc-botoes .btn-c-calc { color: var(--danger); }
+.calc-botoes .btn-igual-calc { 
+    background-color: var(--primary); color: white;
+    grid-row: span 2; /* Faz o botão de igual ocupar 2 linhas de altura */
+}
+.calc-botoes .btn-igual-calc:hover { background-color: var(--primary-hover); }
+.calc-botoes .zero-calc { grid-column: span 2; } /* O zero ocupa duas colunas */
+
+
+/* DARK MODE EXTRA */
+body.dark { --bg-page: #0f172a; --bg-card: #1e293b; --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155; }
+body.dark .tarefa-item { background-color: rgba(255, 255, 255, 0.03); }
+body.dark #select-prioridade, body.dark #select-categoria, body.dark #input-data { background-color: #1e293b; }
+
+/* MOBILE */
+@media (max-width: 480px) {
+    .form-linha-2 { flex-wrap: wrap; }
+    #select-prioridade, #select-categoria { flex: 1; min-width: 45%; }
+    #input-data { flex-basis: 100%; }
+    #btn-adicionar { flex-basis: 100%; height: 40px; }
+}
+
+@keyframes abrir { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulsarAviso { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.15); } 70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }

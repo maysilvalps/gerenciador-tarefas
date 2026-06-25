@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="icon" type="image/png" href="imagens/tarefasicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas Master Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="todo-app">
+        <header>
+            <div class="header-top">
+                <h1>Minhas Tarefas 📝</h1>
+                <div class="header-botoes">
+                    <button id="btn-calc" title="Abrir Calculadora">🔢</button>
+                    <button id="btn-tema" title="Alternar Tema">🌙</button>
+                </div>
+            </div>
+            <p>Organize o seu dia de forma simples</p>
+            
+            <div class="progresso-container">
+                <div id="contador-tarefas">0 de 0 concluídas</div>
+                <div class="barra-progresso-bg">
+                    <div id="barra-progresso-fill"></div>
+                </div>
+            </div>
+        </header>
+
+        <form id="form-tarefa">
+            <div class="form-linha-1">
+                <input type="text" id="input-tarefa" placeholder="O que você precisa fazer?" required autocomplete="off">
+            </div>
+            <div class="form-linha-2">
+                <select id="select-prioridade" title="Prioridade">
+                    <option value="baixa">🟢 Baixa</option>
+                    <option value="media" selected>🟡 Média</option>
+                    <option value="alta">🔴 Alta</option>
+                </select>
+                <select id="select-categoria" title="Categoria">
+                    <option value="💻 Trabalho">💻 Trabalho</option>
+                    <option value="📚 Estudos" selected>📚 Estudos</option>
+                    <option value="🏠 Pessoal">🏠 Pessoal</option>
+                </select>
+                <input type="date" id="input-data" title="Data Limite">
+                <button type="submit" id="btn-adicionar">＋</button>
+            </div>
+        </form>
+
+        <div class="busca-container">
+            <input type="text" id="input-busca" placeholder="🔍 Pesquisar nas suas tarefas..." autocomplete="off">
+        </div>
+
+        <div class="filtros-container">
+            <button class="btn-filtro ativo" data-filtro="todas">Todas</button>
+            <button class="btn-filtro" data-filtro="pendentes">Pendentes</button>
+            <button class="btn-filtro" data-filtro="concluidas">Concluídas</button>
+        </div>
+
+        <p id="mensagem-vazia" class="mensagem-vazia">Tudo limpo por aqui! Hora de descansar? ☕</p>
+
+        <ul id="lista-tarefas"></ul>
+
+        <button id="btn-limpar-tudo">Limpar Todas as Tarefas</button>
+    </div>
+
+    <div id="modal-calc" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar-modal">&times;</span>
+            <div class="calculadora">
+                <input type="text" id="calc-display" readonly value="0">
+                <div class="calc-botoes">
+                    <button class="btn-c-calc" onclick="limparCalc()">C</button>
+                    <button onclick="apagarUltimoCalc()">⌫</button>
+                    <button onclick="inserirCalc('/')">÷</button>
+                    <button onclick="inserirCalc('*')">×</button>
+                    
+                    <button onclick="inserirCalc('7')">7</button>
+                    <button onclick="inserirCalc('8')">8</button>
+                    <button onclick="inserirCalc('9')">9</button>
+                    <button onclick="inserirCalc('-')">-</button>
+                    
+                    <button onclick="inserirCalc('4')">4</button>
+                    <button onclick="inserirCalc('5')">5</button>
+                    <button onclick="inserirCalc('6')">6</button>
+                    <button onclick="inserirCalc('+')">+</button>
+                    
+                    <button onclick="inserirCalc('1')">1</button>
+                    <button onclick="inserirCalc('2')">2</button>
+                    <button onclick="inserirCalc('3')">3</button>
+                    <button class="btn-igual-calc" onclick="calcularResultado()">=</button>
+                    
+                    <button onclick="inserirCalc('0')" class="zero-calc">0</button>
+                    <button onclick="inserirCalc('.')">.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
