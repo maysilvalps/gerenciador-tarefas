@@ -10,12 +10,23 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { background-color: var(--bg-page); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+
+/* Os elementos empilham na vertical, mandando o rodapé para baixo */
+body { 
+    background-color: var(--bg-page); 
+    color: var(--text-main); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    padding: 20px; 
+}
 
 .todo-app { background-color: var(--bg-card); width: 100%; max-width: 550px; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); }
 .header-top { display: flex; justify-content: space-between; align-items: center; }
 .header-botoes { display: flex; gap: 10px; }
-header h1 { font-size: 26px; }
+header h1 { font-size: 22px; }
 header p { color: var(--text-muted); font-size: 13px; margin-bottom: 12px; }
 
 /* PROGRESSO */
@@ -68,12 +79,12 @@ body.dark .tarefa-item.atrasada { background-color: #2d1a1a; }
    ESTILOS DO MODAL E DA CALCULADORA
    ========================================== */
 .modal {
-    display: none; /* Escondido por padrão */
+    display: none; 
     position: fixed;
     z-index: 100;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido translúcido */
+    background-color: rgba(0, 0, 0, 0.5); 
     justify-content: center; align-items: center;
 }
 
@@ -124,10 +135,10 @@ body.dark .tarefa-item.atrasada { background-color: #2d1a1a; }
 .calc-botoes .btn-c-calc { color: var(--danger); }
 .calc-botoes .btn-igual-calc { 
     background-color: var(--primary); color: white;
-    grid-row: span 2; /* Faz o botão de igual ocupar 2 linhas de altura */
+    grid-row: span 2; 
 }
 .calc-botoes .btn-igual-calc:hover { background-color: var(--primary-hover); }
-.calc-botoes .zero-calc { grid-column: span 2; } /* O zero ocupa duas colunas */
+.calc-botoes .zero-calc { grid-column: span 2; } 
 
 
 /* DARK MODE EXTRA */
@@ -145,3 +156,23 @@ body.dark #select-prioridade, body.dark #select-categoria, body.dark #input-data
 
 @keyframes abrir { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pulsarAviso { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.15); } 70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+
+/* ==========================================
+   ESTILO DO RODAPÉ (DIREITOS AUTORAIS)
+   ========================================== */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    width: 100%;
+}
+
+footer p {
+    font-size: 12px;
+    color: #94a3b8; 
+    font-weight: 400;
+}
+
+body.dark footer p {
+    color: #64748b;
+}
